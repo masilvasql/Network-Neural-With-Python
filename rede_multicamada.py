@@ -11,6 +11,9 @@ import numpy as np
 def sigmoid(soma):
     return 1 / (1 + np.exp(-soma))
 
+def sigmoidDerviada(sig):
+    return sig * (1 - sig)
+
 
 entradas = np.array([[0,0],
                      [0,1],
@@ -34,3 +37,7 @@ for j in range(epocas):
     camadaDeSaida = sigmoid(somaSinapse1) #efetua função sigmoid
     erroCamadaSaida = saidas - camadaDeSaida #efetua calculo do array e matriz
     mediaAbsoluta = np.mean(np.abs(erroCamadaSaida)) #abs = valor absoluto (sem sinal) - mean = média
+    derivadaSaida = sigmoidDerviada(camadaDeSaida) 
+    deltaSaida = erroCamadaSaida * derivadaSaida
+    derivadaCamadaOculta = sigmoidDerviada(camadaOculta)
+    deltaCamadaOculta =  derivadaCamadaOculta * (pesos1) * (deltaSaida)
